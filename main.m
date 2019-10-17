@@ -1,5 +1,11 @@
-data = table2array(readtable('grade_distribution.csv'));
-first_col = (:, "department");
-enge = data(first_col == "ENGE", :);
-gpa = data(:, "qca");
-plot(table2array(enge));
+data = readtable('grade_distribution.csv');
+
+
+enge = data(data.department == "ENGE", :);
+hist = data(data.department == "HIST", :);
+
+enge_gpa = mean(table2array(enge(:, "qca")));
+hist_gpa = mean(table2array(hist(:, "qca")));
+
+barh([enge_gpa, hist_gpa]);
+set(gca, 'yticklabel', ["Engineering"; "History"])
